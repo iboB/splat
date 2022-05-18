@@ -5,7 +5,9 @@
 // See accompanying file LICENSE.txt or copy at
 // https://opensource.org/licenses/MIT
 //
-#pragma once
+
+// Intentionally leave no include guard
+// Thus one can define symbols before including
 
 // Shared library interface
 #if !defined(SYMBOL_IMPORT)
