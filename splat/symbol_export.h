@@ -1,9 +1,5 @@
-// splat
-// Copyright (c) 2020-2022 Borislav Stanimirov
-//
-// Distributed under the MIT Software License
-// See accompanying file LICENSE.txt or copy at
-// https://opensource.org/licenses/MIT
+// Copyright (c) Borislav Stanimirov
+// SPDX-License-Identifier: MIT
 //
 
 // Intentionally leave no include guard

@@ -1,13 +1,9 @@
-// splat
-// Copyright (c) 2020-2022 Borislav Stanimirov
-//
-// Distributed under the MIT Software License
-// See accompanying file LICENSE.txt or copy at
-// https://opensource.org/licenses/MIT
+// Copyright (c) Borislav Stanimirov
+// SPDX-License-Identifier: MIT
 //
 #pragma once
 
-// macros to enable and disable warning
+// macros to enable and disable warnings
 
 #if defined(_MSC_VER)
 #   define PRAGMA_WARNING_PUSH __pragma(warning(push))
