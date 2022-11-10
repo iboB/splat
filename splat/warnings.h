@@ -15,6 +15,7 @@
 #elif defined(__GNUC__) // also defined by clang
 #   define PRAGMA_WARNING_PUSH _Pragma("GCC diagnostic push")
 #   define PRAGMA_WARNING_POP  _Pragma("GCC diagnostic pop")
+#   define DISABLE_MSVC_WARNING(w)
 #   define I_SPLAT_PRAGMA(x) _Pragma(#x)
 #   define DISABLE_GCC_AND_CLANG_WARNING(w) I_SPLAT_PRAGMA(GCC diagnostic ignored w)
 #   if defined(__clang__)
