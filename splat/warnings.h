@@ -5,6 +5,16 @@
 
 // macros to enable and disable warnings
 
+#if 0 // example usage
+PRAGMA_WARNING_PUSH
+DISABLE_MSVC_WARNING(4305)
+DISABLE_GCC_AND_CLANG_WARNING("-Wconversion")
+double d = 3.14;
+float foo1 = d; // no warning
+// restore previous warning state
+PRAGMA_WARNING_POP
+#endif
+
 #if defined(_MSC_VER)
 #   define PRAGMA_WARNING_PUSH __pragma(warning(push))
 #   define PRAGMA_WARNING_POP  __pragma(warning(pop))
