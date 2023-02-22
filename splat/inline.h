@@ -7,7 +7,7 @@
 
 #if !defined(FORCE_INLINE)
 #   if defined(__GNUC__)
-#       define FORCE_INLINE __attribute__((always_inline))
+#       define FORCE_INLINE __attribute__((always_inline)) inline
 #   elif defined(_MSC_VER)
 #       define FORCE_INLINE  __forceinline
 #   else
