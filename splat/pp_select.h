@@ -20,6 +20,16 @@ def va_opt_comma = VA_OPT ? '__VA_OPT__(,)' : ','
   args = (0..i).map { "_a#{_1}" }
   puts "#define SPLAT_SELECT_ARITY_UPTO_#{i}(#{args.join(', ')}, ...) SPLAT_SELECTOR_TRAMPOLINE(SPLAT_SELECT_ARG_#{i+1}, (__VA_ARGS__ #{va_opt_comma} #{args.reverse.join(', ')}))(__VA_ARGS__)"
 end
+
+ARITY.times do |i|
+  args = ['MACRO'] + i.times.map { "_a#{_1}" }
+  args = args.join(', ')
+  expand = i.times.map { "MACRO(_a#{_1}, #{_1})" }.join(', ')
+  puts "#define SPLAT_ITERATE_#{i}(#{args}) #{expand}"
+end
+
+args = ARITY.times.map { "SPLAT_ITERATE_#{_1}" }.join(', ')
+puts "#define SPLAT_ITERATE_WITH(MACRO, ...) SPLAT_SELECT_ARITY_UPTO_#{ARITY}(_, #{args}, MACRO, ##__VA_ARGS__)"
 */
 // With C++20 the script can also generate __VA_OPT__ appropriately
 // and allow us to support zero-arg selections
@@ -43,5 +53,13 @@ end
 #define SPLAT_SELECT_ARITY_UPTO_7(_a0, _a1, _a2, _a3, _a4, _a5, _a6, _a7, ...) SPLAT_SELECTOR_TRAMPOLINE(SPLAT_SELECT_ARG_8, (__VA_ARGS__ , _a7, _a6, _a5, _a4, _a3, _a2, _a1, _a0))(__VA_ARGS__)
 #define SPLAT_SELECT_ARITY_UPTO_8(_a0, _a1, _a2, _a3, _a4, _a5, _a6, _a7, _a8, ...) SPLAT_SELECTOR_TRAMPOLINE(SPLAT_SELECT_ARG_9, (__VA_ARGS__ , _a8, _a7, _a6, _a5, _a4, _a3, _a2, _a1, _a0))(__VA_ARGS__)
 #define SPLAT_SELECT_ARITY_UPTO_9(_a0, _a1, _a2, _a3, _a4, _a5, _a6, _a7, _a8, _a9, ...) SPLAT_SELECTOR_TRAMPOLINE(SPLAT_SELECT_ARG_10, (__VA_ARGS__ , _a9, _a8, _a7, _a6, _a5, _a4, _a3, _a2, _a1, _a0))(__VA_ARGS__)
-
-// a meta seletor can be created which selects the selector based on arg count
+#define SPLAT_ITERATE_0(MACRO)
+#define SPLAT_ITERATE_1(MACRO, _a0) MACRO(_a0, 0)
+#define SPLAT_ITERATE_2(MACRO, _a0, _a1) MACRO(_a0, 0), MACRO(_a1, 1)
+#define SPLAT_ITERATE_3(MACRO, _a0, _a1, _a2) MACRO(_a0, 0), MACRO(_a1, 1), MACRO(_a2, 2)
+#define SPLAT_ITERATE_4(MACRO, _a0, _a1, _a2, _a3) MACRO(_a0, 0), MACRO(_a1, 1), MACRO(_a2, 2), MACRO(_a3, 3)
+#define SPLAT_ITERATE_5(MACRO, _a0, _a1, _a2, _a3, _a4) MACRO(_a0, 0), MACRO(_a1, 1), MACRO(_a2, 2), MACRO(_a3, 3), MACRO(_a4, 4)
+#define SPLAT_ITERATE_6(MACRO, _a0, _a1, _a2, _a3, _a4, _a5) MACRO(_a0, 0), MACRO(_a1, 1), MACRO(_a2, 2), MACRO(_a3, 3), MACRO(_a4, 4), MACRO(_a5, 5)
+#define SPLAT_ITERATE_7(MACRO, _a0, _a1, _a2, _a3, _a4, _a5, _a6) MACRO(_a0, 0), MACRO(_a1, 1), MACRO(_a2, 2), MACRO(_a3, 3), MACRO(_a4, 4), MACRO(_a5, 5), MACRO(_a6, 6)
+#define SPLAT_ITERATE_8(MACRO, _a0, _a1, _a2, _a3, _a4, _a5, _a6, _a7) MACRO(_a0, 0), MACRO(_a1, 1), MACRO(_a2, 2), MACRO(_a3, 3), MACRO(_a4, 4), MACRO(_a5, 5), MACRO(_a6, 6), MACRO(_a7, 7)
+#define SPLAT_ITERATE_WITH(MACRO, ...) SPLAT_SELECT_ARITY_UPTO_9(_, SPLAT_ITERATE_0, SPLAT_ITERATE_1, SPLAT_ITERATE_2, SPLAT_ITERATE_3, SPLAT_ITERATE_4, SPLAT_ITERATE_5, SPLAT_ITERATE_6, SPLAT_ITERATE_7, SPLAT_ITERATE_8, MACRO, ##__VA_ARGS__)
