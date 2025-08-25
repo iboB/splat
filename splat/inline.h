@@ -22,3 +22,13 @@
 #       define NOINLINE __attribute__((noinline))
 #   endif
 #endif
+
+#if defined(__cplusplus) && !defined(FORCE_INLINE_LAMBDA)
+#   if defined(__GNUC__)
+#       define FORCE_INLINE_LAMBDA __attribute__((always_inline))
+#   elif defined(_MSC_VER)
+#       define FORCE_INLINE_LAMBDA  [[msvc::forceinline]]
+#   else
+#       define FORCE_INLINE_LAMBDA
+#   endif
+#endif
