@@ -8,3 +8,4 @@ endfunction()
 
 add_demo(pp_select-c pp_select.c)
 add_demo(pp_select-cpp pp_select.cpp)
+add_demo(pp_util pp_util.c)
